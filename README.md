@@ -1,3 +1,13 @@
+#запуск
+docker run -p 3000:3000 -d webbylabhub/movies
+
+// RUN
+docker run --name movies -p 8000:8000 webbylabhub/movies
+//
+docker run --name movies -p 3000:3000 -e API_URL=http://localhost:8000/api/v1/movies
+
+docker run --name movies -p 3000:3000 -e API_URL=http://localhost:8000/api/v1 your_super_account/movies
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.

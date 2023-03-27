@@ -1,4 +1,5 @@
-FROM node
+# FROM node as builder
+FROM webbylabhub/movies
 WORKDIR /app
 COPY package.json .
 RUN npm install
