@@ -1,33 +1,36 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
-import axios from 'axios';
-import { useActions } from '../hooks/actions';
+import axios from "axios";
+import { useActions } from "../hooks/actions";
 
 interface IRequestUser {
-    token: string
-    status: string
-    error: any
-  }
+  token: string;
+  status: string;
+  error: any;
+}
 
 const Login = () => {
-    const { setSession } = useActions();
-    
-    const [email, setEmail] = useState("dima1717@gmail.com");
-    const [password, setPassword] = useState("super-password");
+  const { setSession } = useActions();
 
-    const onSubmitSession = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    
-        const body = { email, password };
-        const response = await axios.post<any, IRequestUser>('http://localhost:8000/api/v1/sessions', body);
-        console.log('response', response);
-    
-        if (response?.token && !response.error) {
-          console.log('response?.token', response?.token);
-          setSession()
-        }
+  const [email, setEmail] = useState("dima1717@gmail.com");
+  const [password, setPassword] = useState("super-password");
+
+  const onSubmitSession = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const body = { email, password };
+    const response = await axios.post<any, IRequestUser>(
+      "http://localhost:8000/api/v1/sessions",
+      body
+    );
+    console.log("response", response);
+
+    if (response?.token && !response.error) {
+      console.log("response?.token", response?.token);
+      setSession();
     }
+  };
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmitSession}>
@@ -62,7 +65,7 @@ const Login = () => {
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

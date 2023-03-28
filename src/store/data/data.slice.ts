@@ -1,29 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IUser {
-  email: string
-  name: string
-  password: string
-  confirmPassword: string
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
 }
 
 interface ISession {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 interface IDataState {
-  createdUser: IUser | {}
-  session: ISession | {}
-  isAuthedUser: boolean
-  isAuthedSession: boolean
+  createdUser: IUser | {};
+  session: ISession | {};
+  isAuthedUser: boolean;
+  isAuthedSession: boolean;
 }
 
 const initialState: IDataState = {
   createdUser: {},
   session: {},
   isAuthedUser: false,
-  isAuthedSession: false
+  isAuthedSession: false,
 };
 
 export const dataSlice = createSlice({
@@ -31,11 +31,11 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     setAuth(state) {
-      state.isAuthedUser = true
+      state.isAuthedUser = true;
     },
     setSession(state) {
-      state.isAuthedSession = true
-    }
+      state.isAuthedSession = true;
+    },
   },
 });
 

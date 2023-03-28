@@ -1,36 +1,39 @@
-import React, { FormEvent, useState } from 'react'
-import { useActions } from '../hooks/actions';
+import React, { FormEvent, useState } from "react";
+import { useActions } from "../hooks/actions";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
-import axios from 'axios';
+import axios from "axios";
 
 interface IRequestUser {
-    token: string
-    status: string
-    error: any
-  }
+  token: string;
+  status: string;
+  error: any;
+}
 
 const Signup = () => {
-    const { setAuth } = useActions();
-    
-    const [email, setEmail] = useState("dima1717@gmail.com");
-    const [password, setPassword] = useState("super-password");
-    const [name, setName] = useState("dima1717");
-    const [confirmPassword, setConfirmPassword] = useState("super-password");
-    
-    const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-  
-      const body = { email, name, password, confirmPassword };
-      const response = await axios.post<any, IRequestUser>('http://localhost:8000/api/v1/users', body);
-      console.log('response', response);
-  
-      if (response?.token && !response.error) {
-        console.log('response?.token', response?.token);
-        setAuth()
-      }
-    };
-    
+  const { setAuth } = useActions();
+
+  const [email, setEmail] = useState("dima1717@gmail.com");
+  const [password, setPassword] = useState("super-password");
+  const [name, setName] = useState("dima1717");
+  const [confirmPassword, setConfirmPassword] = useState("super-password");
+
+  const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const body = { email, name, password, confirmPassword };
+    const response = await axios.post<any, IRequestUser>(
+      "http://localhost:8000/api/v1/users",
+      body
+    );
+    console.log("response", response);
+
+    if (response?.token && !response.error) {
+      console.log("response?.token", response?.token);
+      setAuth();
+    }
+  };
+
   return (
     <form className="text-center mb-8" onSubmit={onSubmitUser}>
       <h3 className="my-2 font-bold text-xl">sign up</h3>
@@ -84,7 +87,7 @@ const Signup = () => {
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

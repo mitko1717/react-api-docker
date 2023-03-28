@@ -7,7 +7,7 @@ export const store = configureStore({
     data: dataReducer,
   },
   // middleware: (getDefaultMiddleware) =>
-    // getDefaultMiddleware().concat(dataApi.middleware),
+  // getDefaultMiddleware().concat(dataApi.middleware),
 });
 
 setupListeners(store.dispatch);

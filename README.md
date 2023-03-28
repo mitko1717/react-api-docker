@@ -7,7 +7,7 @@ docker run --name movies -p 8000:8000 webbylabhub/movies
 docker run --name movies -p 3000:3000 -e API_URL=http://localhost:8000/api/v1/movies
 
 // run back an frontend in one container
-docker run -d -p 3000:3000 movies -e API_URL=http://localhost:8000/api/v1/movies 
+docker run -d -p 3000:3000 movies -e API_URL=http://localhost:8000/api/v1/movies
 
 # Getting Started with Create React App and Redux
 
