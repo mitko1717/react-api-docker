@@ -1,25 +1,41 @@
-// import { IPost, IPostWithComments } from "./../../models/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface IUser {
+  email: string
+  name: string
+  password: string
+  confirmPassword: string
+}
+
+interface ISession {
+  email: string
+  password: string
+}
+
 interface IDataState {
-  // posts: IPost[];
-  // openedPost: IPostWithComments | null;
-  openingPostId: number;
+  createdUser: IUser | {}
+  session: ISession | {}
+  isAuthedUser: boolean
+  isAuthedSession: boolean
 }
 
 const initialState: IDataState = {
-  // posts: [],
-  // openedPost: null,
-  openingPostId: 2,
+  createdUser: {},
+  session: {},
+  isAuthedUser: false,
+  isAuthedSession: false
 };
 
 export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setOpeningPostId(state, action: PayloadAction<number>) {
-      state.openingPostId = action.payload;
+    setAuth(state) {
+      state.isAuthedUser = true
     },
+    setSession(state) {
+      state.isAuthedSession = true
+    }
   },
 });
 

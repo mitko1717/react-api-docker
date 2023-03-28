@@ -1,6 +1,6 @@
 # FROM node as builder
 FROM webbylabhub/movies
-WORKDIR /app
+WORKDIR /
 COPY package.json .
 RUN npm install
 COPY . .
