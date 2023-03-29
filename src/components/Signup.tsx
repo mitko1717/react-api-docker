@@ -3,15 +3,11 @@ import { useActions } from "../hooks/actions";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-
-interface IRequestUser {
-  token: string;
-  status: string;
-  error: any;
-}
+import { useSignUpMutation } from "../store/data/data.api";
 
 const Signup = () => {
   const { setAuth } = useActions();
+  const [signUp, response] = useSignUpMutation();
 
   const [email, setEmail] = useState("dima1717@gmail.com");
   const [password, setPassword] = useState("super-password");
@@ -20,18 +16,16 @@ const Signup = () => {
 
   const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    signUp({ email, name, password, confirmPassword });
+    console.log(response);
 
-    const body = { email, name, password, confirmPassword };
-    const response = await axios.post<any, IRequestUser>(
-      "http://localhost:8000/api/v1/users",
-      body
-    );
-    console.log("response", response);
+    // const body = { email, name, password, confirmPassword };
+    // const response = await axios.post<any, any>(
+    //   "http://localhost:8000/api/v1/users",
+    //   body
+    // );
 
-    if (response?.token && !response.error) {
-      console.log("response?.token", response?.token);
-      setAuth();
-    }
+    // if (response.data.token && !response.data.error) setAuth();
   };
 
   return (

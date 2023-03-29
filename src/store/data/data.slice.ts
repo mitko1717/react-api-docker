@@ -17,6 +17,7 @@ interface IDataState {
   session: ISession | {};
   isAuthedUser: boolean;
   isAuthedSession: boolean;
+  token: string;
 }
 
 const initialState: IDataState = {
@@ -24,6 +25,7 @@ const initialState: IDataState = {
   session: {},
   isAuthedUser: false,
   isAuthedSession: false,
+  token: "",
 };
 
 export const dataSlice = createSlice({
@@ -35,6 +37,9 @@ export const dataSlice = createSlice({
     },
     setSession(state) {
       state.isAuthedSession = true;
+    },
+    setToken(state, action: PayloadAction<string>) {
+      state.token = action.payload;
     },
   },
 });

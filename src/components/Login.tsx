@@ -1,36 +1,27 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import { useActions } from "../hooks/actions";
-
-interface IRequestUser {
-  token: string;
-  status: string;
-  error: any;
-}
+import { useLogInMutation } from "../store/data/data.api";
 
 const Login = () => {
-  const { setSession } = useActions();
+  const { setSession, setToken } = useActions();
+  const [logIn, { isSuccess, isError, data }] = useLogInMutation<any>();
 
   const [email, setEmail] = useState("dima1717@gmail.com");
   const [password, setPassword] = useState("super-password");
 
   const onSubmitSession = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const body = { email, password };
-    const response = await axios.post<any, IRequestUser>(
-      "http://localhost:8000/api/v1/sessions",
-      body
-    );
-    console.log("response", response);
-
-    if (response?.token && !response.error) {
-      console.log("response?.token", response?.token);
-      setSession();
-    }
+    await logIn({ email, password });
   };
+
+  useEffect(() => {
+    if (isSuccess && data && data.token) {
+      setSession();
+      setToken(data.token);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmitSession}>
