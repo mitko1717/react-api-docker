@@ -8,26 +8,35 @@ import {
 } from "../../models/interface";
 
 export interface IOneMovieData {
-  data: IOneMovie
-  status: number
+  data: IOneMovie;
+  status: number;
 }
 
 export interface IOneMovie {
-  id: number
-  title: string
-  year: number
-  format: string
-  actors: IActor[]
-  createdAt: string
-  updatedAt: string
+  id: number;
+  title: string;
+  year: number;
+  format: string;
+  actors: IActor[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IActor {
-  id: number
-  name: string
-  createdAt: string
-  updatedAt: string
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }
+
+interface IMoviesQueryParams {
+  sort: string;
+  order: string;
+  offset: string;
+  search?: string;
+  title?: string;
+}
+
 
 export const dataApi = createApi({
   reducerPath: "posts/api",
@@ -46,17 +55,44 @@ export const dataApi = createApi({
       transformResponse: (response: IOneMovieData) => response,
     }),
 
+    // getMovies: build.query({
+    //   query: ({ Authorization, search, title }) => ({
+    //     url: `movies`,
+    //     headers: { Authorization },
+    //     params: {
+    //       sort: "year",
+    //       order: "DESC",
+    //       offset: "0",
+    //       search: search ? search : "",
+    //       title: title ? title : ""
+    //     },
+    //   }),
+    //   providesTags: ["getMovies"],
+    //   transformResponse: (response: IMoviesList) => response,
+    // }),
+
     getMovies: build.query({
-      query: ({ Authorization }) => ({
-        url: `movies`,
-        headers: { Authorization },
-        params: {
+      query: ({ Authorization, search, title }) => {
+        const params: IMoviesQueryParams = {
           sort: "year",
           order: "DESC",
-          limit: "10",
           offset: "0",
-        },
-      }),
+        };
+    
+        if (search) {
+          params.search = search;
+        }
+    
+        if (title) {
+          params.title = title;
+        }
+    
+        return {
+          url: `movies`,
+          headers: { Authorization },
+          params,
+        };
+      },
       providesTags: ["getMovies"],
       transformResponse: (response: IMoviesList) => response,
     }),

@@ -6,7 +6,7 @@ import { useAddMovieMutation } from "../store/data/data.api";
 import toast from "react-hot-toast";
 
 const AddFilm = () => {
-  let commentToastId: string
+  let commentToastId: string;
   const { token } = useAppSelector((state) => state.data);
   const [addMovie, { isError, error, data }] = useAddMovieMutation<any>();
 
@@ -46,13 +46,13 @@ const AddFilm = () => {
     await addMovie({ movie: { title, year, format, actors }, token });
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     if (data && data.hasOwnProperty("status") && data.status === 0) {
-      toast.error(data.error.code, { id: commentToastId })
+      toast.error(data.error.code, { id: commentToastId });
     }
-    if (isError) toast.error(error.code, { id: commentToastId })
+    if (isError) toast.error(error.code, { id: commentToastId });
     if (data && data.hasOwnProperty("status") && data.status === 1) {
-      toast.success("you successfully added movie", { id: commentToastId })
+      toast.success("you successfully added movie", { id: commentToastId });
     }
   }, [isError, data]);
 

@@ -6,9 +6,10 @@ import { useSignUpMutation } from "../store/data/data.api";
 import toast from "react-hot-toast";
 
 const Signup = () => {
-  let commentToastId: string
+  let commentToastId: string;
   const { setAuth } = useActions();
-  const [signUp, { isSuccess, isError, data, error }] = useSignUpMutation<any>();
+  const [signUp, { isSuccess, isError, data, error }] =
+    useSignUpMutation<any>();
 
   const [email, setEmail] = useState("dima1717@gmail.com");
   const [password, setPassword] = useState("super-password");
@@ -22,11 +23,11 @@ const Signup = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("you successfully sign in", { id: commentToastId })
-      setAuth()
+      toast.success("you successfully sign in", { id: commentToastId });
+      setAuth();
     }
-    if (isError) toast.error(error.code, { id: commentToastId })
-  }, [])
+    if (isError) toast.error(error.code, { id: commentToastId });
+  }, []);
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmitUser}>
