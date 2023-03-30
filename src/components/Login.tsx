@@ -3,10 +3,12 @@ import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import { useActions } from "../hooks/actions";
 import { useLogInMutation } from "../store/data/data.api";
+import toast from "react-hot-toast"
 
 const Login = () => {
+  let commentToastId: string
   const { setSession, setToken } = useActions();
-  const [logIn, { isSuccess, isError, data }] = useLogInMutation<any>();
+  const [logIn, { isSuccess, isError, data, error }] = useLogInMutation<any>();
 
   const [email, setEmail] = useState("dima1717@gmail.com");
   const [password, setPassword] = useState("super-password");
@@ -18,8 +20,12 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && data && data.token) {
+      toast.success("you successfully logined", { id: commentToastId })
       setSession();
       setToken(data.token);
+    }
+    if (isError) {
+        toast.error(error, { id: commentToastId })
     }
   }, [isSuccess, isError]);
 

@@ -1,46 +1,32 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  IAddMovie,
+  IDelete,
+  IMoviesList,
+  IRequestSession,
+  IRequestUser,
+} from "../../models/interface";
 
-interface IMoviesList {
-  data: IMov[];
-  meta: IMeta;
-  status: number;
+export interface IOneMovieData {
+  data: IOneMovie
+  status: number
 }
 
-interface IMov {
-  id: number;
-  title: string;
-  year: number;
-  format: string;
-  createdAt: string;
-  updatedAt: string;
+export interface IOneMovie {
+  id: number
+  title: string
+  year: number
+  format: string
+  actors: IActor[]
+  createdAt: string
+  updatedAt: string
 }
 
-interface IMeta {
-  total: number;
-}
-
-interface IRequestUser {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface IRequestSession {
-  email: string;
-  password: string;
-}
-
-interface IMovie {
-  title: string;
-  year: string;
-  format: string;
-  actors: string[];
-}
-
-interface IAddMovie {
-  token: string;
-  movie: IMovie;
+export interface IActor {
+  id: number
+  name: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const dataApi = createApi({
@@ -51,6 +37,15 @@ export const dataApi = createApi({
   tagTypes: ["getMovies", "Put", "Get"],
   refetchOnFocus: true,
   endpoints: (build) => ({
+    getOneMovie: build.query({
+      query: ({ Authorization, id }) => ({
+        url: `movies/${id}`,
+        headers: { Authorization },
+      }),
+      providesTags: ["getMovies"],
+      transformResponse: (response: IOneMovieData) => response,
+    }),
+
     getMovies: build.query({
       query: ({ Authorization }) => ({
         url: `movies`,
@@ -75,7 +70,6 @@ export const dataApi = createApi({
           "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      // invalidatesTags: ["Post"],
       transformResponse: (response: any) => response,
     }),
 
@@ -88,7 +82,6 @@ export const dataApi = createApi({
           "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      // invalidatesTags: ["Post"],
       transformResponse: (response: any) => response,
     }),
 
@@ -99,6 +92,21 @@ export const dataApi = createApi({
         body: payload.movie,
         headers: {
           Authorization: payload.token,
+          "Access-Control-Allow-Origin": "http://localhost:8000",
+          "Access-Control-Allow-Credentials": "true",
+        },
+      }),
+      invalidatesTags: ["getMovies"],
+    }),
+
+    deleteMovie: build.mutation<null, IDelete>({
+      query: (payload) => ({
+        url: `/movies/${payload.id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: payload.token,
+          "Access-Control-Allow-Origin": "http://localhost:8000",
+          "Access-Control-Allow-Credentials": "true",
         },
       }),
       invalidatesTags: ["getMovies"],
@@ -107,8 +115,10 @@ export const dataApi = createApi({
 });
 
 export const {
+  useGetOneMovieQuery,
   useGetMoviesQuery,
   useLogInMutation,
   useSignUpMutation,
   useAddMovieMutation,
+  useDeleteMovieMutation,
 } = dataApi;

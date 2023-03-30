@@ -1,13 +1,14 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useActions } from "../hooks/actions";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import { useSignUpMutation } from "../store/data/data.api";
+import toast from "react-hot-toast";
 
 const Signup = () => {
+  let commentToastId: string
   const { setAuth } = useActions();
-  const [signUp, response] = useSignUpMutation();
+  const [signUp, { isSuccess, isError, data, error }] = useSignUpMutation<any>();
 
   const [email, setEmail] = useState("dima1717@gmail.com");
   const [password, setPassword] = useState("super-password");
@@ -17,16 +18,15 @@ const Signup = () => {
   const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signUp({ email, name, password, confirmPassword });
-    console.log(response);
-
-    // const body = { email, name, password, confirmPassword };
-    // const response = await axios.post<any, any>(
-    //   "http://localhost:8000/api/v1/users",
-    //   body
-    // );
-
-    // if (response.data.token && !response.data.error) setAuth();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("you successfully sign in", { id: commentToastId })
+      setAuth()
+    }
+    if (isError) toast.error(error.code, { id: commentToastId })
+  }, [])
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmitUser}>

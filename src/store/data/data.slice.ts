@@ -20,10 +20,15 @@ interface IDataState {
   token: string;
 }
 
+const isUserLogined =
+  typeof window !== "undefined" && localStorage.getItem("isLogined") !== null
+    ? JSON.parse(localStorage.getItem("isLogined") || "")
+    : null;
+
 const initialState: IDataState = {
   createdUser: {},
   session: {},
-  isAuthedUser: false,
+  isAuthedUser: isUserLogined !== null ? JSON.parse(isUserLogined) : false,
   isAuthedSession: false,
   token: "",
 };
@@ -34,6 +39,7 @@ export const dataSlice = createSlice({
   reducers: {
     setAuth(state) {
       state.isAuthedUser = true;
+      localStorage.setItem("isLogined", "true");
     },
     setSession(state) {
       state.isAuthedSession = true;

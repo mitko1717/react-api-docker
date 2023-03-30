@@ -4,7 +4,7 @@ import Movie from "./Movie";
 
 const Movies = () => {
   const { token } = useAppSelector((state) => state.data);
-  const { isLoading, isError, data } = useGetMoviesQuery({
+  const { isLoading, data } = useGetMoviesQuery({
     Authorization: token,
   });
 
@@ -14,9 +14,7 @@ const Movies = () => {
     return (
       <div className="flex flex-wrap">
         {data.data.map((movie) => {
-          return (
-            <Movie key={movie.id} movie={movie}/>
-          );
+          return <Movie key={movie.id} movie={movie} />;
         })}
       </div>
     );

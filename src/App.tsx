@@ -3,6 +3,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import AddFilm from "./components/AddFilm";
 import Movies from "./components/Movies";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { isAuthedSession, isAuthedUser } = useAppSelector(
@@ -11,9 +12,10 @@ function App() {
 
   return (
     <div className="w-full h-[100vh] bg-slate-700 p-4">
-      {/* {!isAuthedUser && <Signup />} */}
-      {!isAuthedSession && !isAuthedUser && <Login />}
-      {!isAuthedUser && isAuthedSession && (
+      <Toaster />
+      {!isAuthedUser && <Signup />}
+      {!isAuthedSession && isAuthedUser && <Login />}
+      {isAuthedUser && isAuthedSession && (
         <>
           <AddFilm />
           <Movies />
