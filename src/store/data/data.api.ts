@@ -30,13 +30,12 @@ export interface IActor {
 }
 
 interface IMoviesQueryParams {
-  sort: string;
+  sort?: string;
   order: string;
   offset: string;
   search?: string;
   title?: string;
 }
-
 
 export const dataApi = createApi({
   reducerPath: "posts/api",
@@ -56,28 +55,23 @@ export const dataApi = createApi({
     }),
 
     getMovies: build.query({
-      query: ({ Authorization, search, title }) => {
+      query: ({ Authorization, search, title, sort }) => {
         const params: IMoviesQueryParams = {
-          sort: "year",
           order: "DESC",
           offset: "0",
         };
-    
-        if (search) {
-          params.search = search;
-        }
-    
-        if (title) {
-          params.title = title;
-        }
-    
+
+        if (search) params.search = search;
+        if (sort) params.sort = sort;
+        if (title) params.title = title;
+
         return {
           url: `movies`,
           headers: { Authorization },
           params,
         };
       },
-      
+
       providesTags: ["getMovies"],
       transformResponse: (response: IMoviesList) => response,
     }),
