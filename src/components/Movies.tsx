@@ -1,15 +1,17 @@
 import { TextField } from "@mui/material";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useAppSelector } from "../hooks/redux";
 import { useGetMoviesQuery } from "../store/data/data.api";
 import Movie from "./Movie";
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
+// import useDebounce from "../hooks/debounce";
 
 const Movies = () => {
   const [search, setSearch] = useState<string>("");
   const [actorSearch, setActorSearch] = useState<string>("");
+
   const { token } = useAppSelector((state) => state.data);
-  const { isLoading, data } = useGetMoviesQuery({
+  const { isLoading, data, refetch } = useGetMoviesQuery({
     Authorization: token,
     title: search,
     search: actorSearch
@@ -28,11 +30,8 @@ const Movies = () => {
     e.preventDefault();    
     setActorSearch(e.target.value);
   };
-//   const debouncedSearchHandler = useCallback(debounce(searchHandler, 300), []);
-//   const debouncedActorSearchHandler = useCallback(debounce(actorSearchHandler, 300), []);
 
   if (isLoading) return <div>loading</div>;
-
   if (data && data.data && data.data.length)
     return (
       <div className="flex flex-col w-full">
@@ -63,9 +62,6 @@ const Movies = () => {
 
         <div className="flex flex-wrap">
           {data.data
-            .filter((movie) =>
-              movie.title.toLowerCase().includes(search.toLowerCase())
-            )
             .map((movie) => {
               return (
                 <Movie key={movie.id} movie={movie} actorSearch={actorSearch} />

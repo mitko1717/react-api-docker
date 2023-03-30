@@ -43,7 +43,7 @@ export const dataApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000/api/v1/",
   }),
-  tagTypes: ["getMovies", "Put", "Get"],
+  tagTypes: ["getMovies"],
   refetchOnFocus: true,
   endpoints: (build) => ({
     getOneMovie: build.query({
@@ -54,22 +54,6 @@ export const dataApi = createApi({
       providesTags: ["getMovies"],
       transformResponse: (response: IOneMovieData) => response,
     }),
-
-    // getMovies: build.query({
-    //   query: ({ Authorization, search, title }) => ({
-    //     url: `movies`,
-    //     headers: { Authorization },
-    //     params: {
-    //       sort: "year",
-    //       order: "DESC",
-    //       offset: "0",
-    //       search: search ? search : "",
-    //       title: title ? title : ""
-    //     },
-    //   }),
-    //   providesTags: ["getMovies"],
-    //   transformResponse: (response: IMoviesList) => response,
-    // }),
 
     getMovies: build.query({
       query: ({ Authorization, search, title }) => {
@@ -93,6 +77,7 @@ export const dataApi = createApi({
           params,
         };
       },
+      
       providesTags: ["getMovies"],
       transformResponse: (response: IMoviesList) => response,
     }),
