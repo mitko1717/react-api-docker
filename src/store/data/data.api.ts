@@ -3,44 +3,16 @@ import {
   IAddMovie,
   IDelete,
   IMoviesList,
+  IMoviesQueryParams,
+  IOneMovieData,
   IRequestSession,
   IRequestUser,
 } from "../../models/interface";
 
-export interface IOneMovieData {
-  data: IOneMovie;
-  status: number;
-}
-
-export interface IOneMovie {
-  id: number;
-  title: string;
-  year: number;
-  format: string;
-  actors: IActor[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface IActor {
-  id: number;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface IMoviesQueryParams {
-  sort?: string;
-  order: string;
-  offset: string;
-  search?: string;
-  title?: string;
-}
-
 export const dataApi = createApi({
   reducerPath: "posts/api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1/",
+    baseUrl: process.env.API_URL || "http://localhost:8000/api/v1/",
   }),
   tagTypes: ["getMovies"],
   refetchOnFocus: true,

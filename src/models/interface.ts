@@ -45,3 +45,33 @@ export interface IDelete {
   token: string;
   id: number | string;
 }
+
+export interface IOneMovieData {
+  data: IOneMovie;
+  status: number;
+}
+
+export interface IOneMovie {
+  id: number;
+  title: string;
+  year: number;
+  format: string;
+  actors: IActor[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IActor {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IMoviesQueryParams {
+  sort?: string;
+  order: string;
+  offset: string;
+  search?: string;
+  title?: string;
+}
