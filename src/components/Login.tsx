@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import { useActions } from "../hooks/actions";
@@ -10,8 +10,10 @@ const Login = () => {
   const { setSession, setToken } = useActions();
   const [logIn, { isSuccess, isError, data, error }] = useLogInMutation<any>();
 
-  const [email, setEmail] = useState("dima1717@gmail.com");
-  const [password, setPassword] = useState("super-password");
+  // const [email, setEmail] = useState("dima1717@gmail.com");
+  // const [password, setPassword] = useState("super-password");
+  const email = "dima1717@gmail.com"
+  const password = "super-password"
 
   const onSubmitSession = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,7 +1,10 @@
-# to run application
+## to run application
 
 docker run --name movies -p 3000:3000 -e API_URL=http://192.168.1.44:8000/api/v1
 (your_super_account/movies)
+
+## docker-compose
+docker-compose up --build
 
 # Getting Started with Create React App and Redux
 
@@ -13,7 +16,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\

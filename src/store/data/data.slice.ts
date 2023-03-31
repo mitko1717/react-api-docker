@@ -1,24 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface IUser {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface ISession {
-  email: string;
-  password: string;
-}
-
-interface IDataState {
-  createdUser: IUser | {};
-  session: ISession | {};
-  isAuthedUser: boolean;
-  isAuthedSession: boolean;
-  token: string;
-}
+import { IDataState } from "../../models/interface";
 
 const isUserLogined =
   typeof window !== "undefined" && localStorage.getItem("isLogined") !== null

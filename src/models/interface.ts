@@ -75,3 +75,36 @@ export interface IMoviesQueryParams {
   search?: string;
   title?: string;
 }
+
+interface IMovieInfoWithActors {
+  id: number;
+  title: string;
+  year: number;
+  format: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IMovieProps {
+  movie: IMovieInfoWithActors;
+}
+
+interface IUser {
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface ISession {
+  email: string;
+  password: string;
+}
+
+export interface IDataState {
+  createdUser: IUser | {};
+  session: ISession | {};
+  isAuthedUser: boolean;
+  isAuthedSession: boolean;
+  token: string;
+}

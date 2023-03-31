@@ -101,7 +101,7 @@ const Movies = () => {
         <div className="flex flex-wrap">
           {data.data.map((movie) => {
             return (
-              <Movie key={movie.id} movie={movie} actorSearch={actorSearch} />
+              <Movie key={movie.id} movie={movie} />
             );
           })}
         </div>

@@ -9,10 +9,30 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - API_URL=${API_URL:-http://localhost:8000/api/v1}
+      - API_URL=http://api:8000/api/v1
       - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS=--max-old-space-size=1024
     depends_on:
       - api
     volumes:
       - .:/app
       - /app/node_modules
+
+# version: "3"
+# services:
+#   api:
+#     image: webbylabhub/movies
+#     ports:
+#       - "8000:8000"
+#   frontend:
+#     build: .
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - API_URL=${API_URL:-http://localhost:8000/api/v1}
+#       - CHOKIDAR_USEPOLLING=true
+#     depends_on:
+#       - api
+#     volumes:
+#       - .:/app
+#       - /app/node_modules

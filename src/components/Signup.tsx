@@ -11,10 +11,10 @@ const Signup = () => {
   const [signUp, { isSuccess, isError, data, error }] =
     useSignUpMutation<any>();
 
-  const [email, setEmail] = useState("dima1717@gmail.com");
-  const [password, setPassword] = useState("super-password");
-  const [name, setName] = useState("dima1717");
-  const [confirmPassword, setConfirmPassword] = useState("super-password");
+  const [email] = useState("dima1717@gmail.com"); //setEmail
+  const [password] = useState("super-password"); //setPassword
+  const [name] = useState("dima1717"); //setName
+  const [confirmPassword] = useState("super-password"); //setConfirmPassword
 
   const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
