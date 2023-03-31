@@ -1,10 +1,12 @@
 ## to run application
-
 docker run --name movies -p 3000:3000 -e API_URL=http://192.168.1.44:8000/api/v1
 (your_super_account/movies)
 
-## docker-compose
+## To run the composed application, you can use the following command:
 docker-compose up --build
+
+## To specify the API_URL environment variable, you can use the -e option like this:
+docker-compose up -e API_URL=http://localhost:8000/api/v1
 
 # Getting Started with Create React App and Redux
 
