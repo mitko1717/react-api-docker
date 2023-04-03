@@ -4,12 +4,16 @@
 # frontend service is using the dimahirich/react-redux-docker-frontend:react-redux-fr-docker image and exposing port 3000.
 # here specified API_URL environment variable to connect the frontend to the backend.
 
+# API_URL=http://192.168.1.44:8000/api/v1
+
 version: "3"
 services:
   api:
     image: webbylabhub/movies
     ports:
       - "8000:8000"
+    environment:
+      - API_URL=http://localhost:8000/api/v1
   frontend:
     image: dimahirich/react-redux-docker-frontend:react-redux-fr-docker
     ports:
@@ -17,10 +21,9 @@ services:
     environment:
       - API_URL=http://localhost:8000/api/v1
       - CHOKIDAR_USEPOLLING=true
-      - NODE_OPTIONS=--max-old-space-size=1024
+      - NODE_OPTIONS=--max-old-space-size=4096
     depends_on:
       - api
-
 
 # version: "3"
 # services:

@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useActions } from "../hooks/actions";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
@@ -8,13 +8,19 @@ import toast from "react-hot-toast";
 const Signup = () => {
   let commentToastId: string;
   const { setAuth } = useActions();
-  const [signUp, { isSuccess, isError, error }] =
+  const [signUp, { isSuccess, isError, data, error }] =
     useSignUpMutation<any>();
 
-  const [email] = useState("dima1717@gmail.com"); //setEmail
-  const [password] = useState("super-password"); //setPassword
-  const [name] = useState("dima1717"); //setName
-  const [confirmPassword] = useState("super-password"); //setConfirmPassword
+  const [email, setEmail] = useState("dima1717@gmail.com");
+  const [password] = useState("super-password");
+  const [name] = useState("dima1717");
+  const [confirmPassword] = useState("super-password");
+
+  const emailHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmail(e.target.value);
+  }
 
   const onSubmitUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,6 +46,7 @@ const Signup = () => {
             label="email"
             variant="outlined"
             value={email}
+            onChange={(e) => emailHandler(e)}
             type="text"
             required
           />

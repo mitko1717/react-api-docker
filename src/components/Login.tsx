@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import { useActions } from "../hooks/actions";
@@ -10,10 +10,20 @@ const Login = () => {
   const { setSession, setToken } = useActions();
   const [logIn, { isSuccess, isError, data, error }] = useLogInMutation<any>();
 
-  // const [email, setEmail] = useState("dima1717@gmail.com");
-  // const [password, setPassword] = useState("super-password");
-  const email = "dima1717@gmail.com"
-  const password = "super-password"
+  const [email, setEmail] = useState("dima1717@gmail.com");
+  const [password, setPassword] = useState("super-password");
+
+  const emailHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmail(e.target.value);
+  };
+
+   const passwordHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPassword(e.target.value);
+  };
 
   const onSubmitSession = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +52,7 @@ const Login = () => {
             label="email"
             variant="outlined"
             value={email}
+            onChange={(e) => emailHandler(e)}
             type="text"
             required
           />
@@ -52,6 +63,7 @@ const Login = () => {
             label="password"
             variant="outlined"
             value={password}
+            onChange={(e) => passwordHandler(e)}
             type="text"
             required
           />
