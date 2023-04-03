@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 const Signup = () => {
   let commentToastId: string;
   const { setAuth } = useActions();
-  const [signUp, { isSuccess, isError, data, error }] =
+  const [signUp, { isSuccess, isError, error }] =
     useSignUpMutation<any>();
 
   const [email] = useState("dima1717@gmail.com"); //setEmail
